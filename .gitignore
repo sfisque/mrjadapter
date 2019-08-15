@@ -1,0 +1,9 @@
+build
+distro
+docs
+Stuff
+
+MRJAdapter.jar
+
+# Xcode files
+*.xcodeproj
