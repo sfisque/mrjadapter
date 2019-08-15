@@ -7,3 +7,6 @@ MRJAdapter.jar
 
 # Xcode files
 *.xcodeproj
+
+# NetBeans files
+/nbproject
