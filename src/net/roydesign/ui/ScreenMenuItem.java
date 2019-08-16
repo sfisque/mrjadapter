@@ -219,14 +219,14 @@ public class ScreenMenuItem extends java.awt.MenuItem
 			{
 				try
 				{
-					Method met = ks.getClass().getMethod("getModifiers", null);
-					Object obj = met.invoke(ks, null);
+					Method met = ks.getClass().getMethod("getModifiers");
+					Object obj = met.invoke(ks);
 					int mdfrs = ((Number)obj).intValue();
 					if ((mdfrs & KeyEvent.META_MASK) != 0)
 					{
 						boolean shft = ((mdfrs & KeyEvent.SHIFT_MASK) != 0);
-						met = ks.getClass().getMethod("getKeyCode", null);
-						obj = met.invoke(ks, null);
+						met = ks.getClass().getMethod("getKeyCode");
+						obj = met.invoke(ks);
 					    int code = ((Number)obj).intValue();
 						setShortcut(new MenuShortcut(code, shft));
 					}

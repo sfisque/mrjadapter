@@ -643,8 +643,8 @@ public final class MRJAdapter implements MRJFolderConstants
 					new Object[] {null});
 				setFactoryMethod.invoke(null, new Object[] {fctry});
 				
-				Method makeOneMethod = fileForkerClass.getMethod("MakeOne", null);
-				Object ff = makeOneMethod.invoke(null, null);
+				Method makeOneMethod = fileForkerClass.getMethod("MakeOne");
+				Object ff = makeOneMethod.invoke(null);
 				
 				Class pathnameClass = Class.forName("glguerin.io.Pathname");
 				Constructor pathnameConstructor =
@@ -1530,10 +1530,10 @@ public final class MRJAdapter implements MRJFolderConstants
 				{
 					Class nsBundleClass =
 						Class.forName("com.apple.cocoa.foundation.NSBundle", true, cocoaClassLoader);
-					Method mainBundleMethod = nsBundleClass.getMethod("mainBundle", null);
-					Object bndl = mainBundleMethod.invoke(null, null);
-					Method bundlePathMethod = nsBundleClass.getMethod("bundlePath", null);
-					applicationPath = (String)bundlePathMethod.invoke(bndl, null);
+					Method mainBundleMethod = nsBundleClass.getMethod("mainBundle");
+					Object bndl = mainBundleMethod.invoke(null);
+					Method bundlePathMethod = nsBundleClass.getMethod("bundlePath");
+					applicationPath = (String)bundlePathMethod.invoke(bndl);
 				}
 				catch (Exception ex)
 				{
