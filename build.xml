@@ -46,7 +46,7 @@
 	<target name="build">
 		<mkdir dir="${output.dir}" />
     	<javac srcdir="${src.dir}" destdir="${output.dir}"
-    		target="1.1" source="1.2" deprecation="off" debug="on">
+    		target="7" source="7" deprecation="off" debug="on">
 			<classpath>
 				<fileset dir="${stubs.dir}">
 					<include name="**/*.jar" />
@@ -63,7 +63,7 @@
 		<javac srcdir="${samples.dir}/Complete App/src"
 			destdir="${samples.dir}/Complete App/classes"
 			classpath="${library.jar}"
-    		target="1.1" source="1.2"
+    		target="7" source="7"
 			debug="on" />
 		<jar destfile="${samples.dir}/Complete App/Test.jar"
 			basedir="${samples.dir}/Complete App/classes"
@@ -72,25 +72,25 @@
 		<copy file="${library.jar}" todir="${samples.dir}/Frameless Menu Bar" />
 		<javac srcdir="${samples.dir}/Frameless Menu Bar"
 			classpath="${library.jar}"
-    		target="1.1" source="1.2"
+    		target="7" source="7"
 			debug="on" />
 		
 		<copy file="${library.jar}" todir="${samples.dir}/Simple MRJAdapter" />
 		<javac srcdir="${samples.dir}/Simple MRJAdapter"
 			classpath="${library.jar}"
-    		target="1.1" source="1.2"
+    		target="7" source="7"
 			debug="on" />
 		
 		<copy file="${library.jar}" todir="${samples.dir}/Standard Menu Items" />
 		<javac srcdir="${samples.dir}/Standard Menu Items"
 			classpath="${library.jar}"
-    		target="1.1" source="1.2"
+    		target="7" source="7"
 			debug="on" />
 		
 		<copy file="${library.jar}" todir="${samples.dir}/Screen Menu Bar" />
 		<javac srcdir="${samples.dir}/Screen Menu Bar"
 			classpath="${library.jar}"
-    		target="1.1" source="1.2"
+    		target="7" source="1.2"
 			debug="on" />
 	</target>
 	
