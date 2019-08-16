@@ -47,7 +47,7 @@
 	<target name="build">
 		<mkdir dir="${output.dir}" />
     	<javac srcdir="${src.dir}" destdir="${output.dir}"
-    		target="${target.version}" source="${target.version}" deprecation="off" debug="on">
+    		target="${target.version}" source="${target.version}" deprecation="off" debug="on" includeantruntime="no">
 			<classpath>
 				<fileset dir="${stubs.dir}">
 					<include name="**/*.jar" />
