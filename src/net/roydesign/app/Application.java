@@ -207,7 +207,6 @@ public class Application
 	/**
 	 * Get the About item as a Swing menu item.
 	 * @return the About Swing menu item
-	 * @exception ClassNotFoundException if Swing is not available
 	 */
 	public AboutJMenuItem getAboutJMenuItem()
 	{
@@ -244,7 +243,6 @@ public class Application
 	/**
 	 * Get the Preferences item as a Swing menu item.
 	 * @return the Preferences Swing menu item
-	 * @exception ClassNotFoundException if Swing is not available
 	 */
 	public PreferencesJMenuItem getPreferencesJMenuItem()
 	{
@@ -281,7 +279,6 @@ public class Application
 	/**
 	 * Get the Quit item as a Swing menu item.
 	 * @return the Quit Swing menu item
-	 * @exception ClassNotFoundException if Swing is not available
 	 */
 	public QuitJMenuItem getQuitJMenuItem()
 	{

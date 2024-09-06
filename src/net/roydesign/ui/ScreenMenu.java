@@ -226,12 +226,13 @@ public class ScreenMenu extends java.awt.Menu implements PropertyChangeListener
 		if (userFrames == null)
 			return;
 		userFrames.removeElement(frameClass);
-		if (userFrames.size() == 0)
+		if (userFrames.isEmpty())
 			userFrames = null;
 	}
 	
 	/**
 	 * Get whether the menu is used by the given frame instance.
+     * @param frame the frame
 	 * @return whether the menu is used by the given frame
 	 */
 	public boolean isUsedBy(Frame frame)

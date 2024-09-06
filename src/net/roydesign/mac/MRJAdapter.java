@@ -57,24 +57,24 @@
 
 package net.roydesign.mac;
 
-import com.apple.eio.FileManager;
-import com.apple.mrj.MRJFileUtils;
-import com.apple.mrj.MRJOSType;
+//import com.apple.eio.FileManager;
+//import com.apple.mrj.MRJFileUtils;
+//import com.apple.mrj.MRJOSType;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
+//import javax.swing.LookAndFeel;
+//import javax.swing.UIManager;
 import java.awt.Frame;
 import java.awt.MenuBar;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+//import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.LineNumberReader;
+//import java.io.InputStreamReader;
+//import java.io.LineNumberReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -176,7 +176,7 @@ public final class MRJAdapter implements MRJFolderConstants
 	{
 		// Get the version of Java
 		String prop = System.getProperty("java.version");
-		javaVersion = new Float(prop.substring(0, 3)).floatValue();
+		javaVersion = Float.parseFloat( prop.substring(0, 3) );
 
 		// Get the version of MRJ
 		/**
@@ -203,7 +203,7 @@ public final class MRJAdapter implements MRJFolderConstants
 				dot = prop.indexOf('.', dot + 1);
 			if (dot != -1)
 				en = dot;
-			mrjVersion = new Float(prop.substring(st, en)).floatValue();
+			mrjVersion = Float.valueOf( prop.substring(st, en) );
 		}
 		
 		// Instantiate the Cocoa class loader if we're on Mac OS X
@@ -242,10 +242,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void setFileType(File file, String type) throws IOException
 	{
-		if (mrjVersion >= 4.0f)
-			FileManager.setFileType(file.getAbsolutePath(), fourCharCodeToInt(type));
-		else if (mrjVersion >= 1.5f)
-			MRJFileUtils.setFileType(file, new MRJOSType(fourCharCodeToInt(type)));
+//		if (mrjVersion >= 4.0f)
+//			FileManager.setFileType(file.getAbsolutePath(), fourCharCodeToInt(type));
+//		else if (mrjVersion >= 1.5f)
+//			MRJFileUtils.setFileType(file, new MRJOSType(fourCharCodeToInt(type)));
 		/** @todo Add support for Mac OS bundles on other platforms */
 	}
 
@@ -265,37 +265,37 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static String getFileType(File file) throws IOException
 	{
-		if (mrjVersion >= 4.0f)
-		{
-			long t = FileManager.getFileType(file.getAbsolutePath());
-			return intToFourCharCode((int)t);
-		}
-		else if (file.isDirectory())
-		{
-			// Check if it's a Mac OS bundle (this should work on any platform)
-			File infoPlist = new File(file, "Contents/Info.plist");
-			if (infoPlist.exists())
-			{
-				// The Mac OS X Finder apparently gives priority to the
-				// PkgInfo file, so we do the same thing
-				File pkgInfo = new File(file, "Contents/PkgInfo");
-				if (pkgInfo.exists())
-				{
-					String t = parsePkgInfo(pkgInfo, "type");
-					return t == null ? "" : t;
-				}
-				else
-				{
-					String t = parseInfoPlist(infoPlist, "CFBundlePackageType");
-					return t == null ? "" : t;
-				}
-			}
-		}
-		else if (mrjVersion >= 1.5f)
-		{
-			MRJOSType t = MRJFileUtils.getFileType(file);
-			return t.toInt() == 0 ? "" : t.toString();
-		}
+//		if (mrjVersion >= 4.0f)
+//		{
+//			long t = FileManager.getFileType(file.getAbsolutePath());
+//			return intToFourCharCode((int)t);
+//		}
+//		else if (file.isDirectory())
+//		{
+//			// Check if it's a Mac OS bundle (this should work on any platform)
+//			File infoPlist = new File(file, "Contents/Info.plist");
+//			if (infoPlist.exists())
+//			{
+//				// The Mac OS X Finder apparently gives priority to the
+//				// PkgInfo file, so we do the same thing
+//				File pkgInfo = new File(file, "Contents/PkgInfo");
+//				if (pkgInfo.exists())
+//				{
+//					String t = parsePkgInfo(pkgInfo, "type");
+//					return t == null ? "" : t;
+//				}
+//				else
+//				{
+//					String t = parseInfoPlist(infoPlist, "CFBundlePackageType");
+//					return t == null ? "" : t;
+//				}
+//			}
+//		}
+//		else if (mrjVersion >= 1.5f)
+//		{
+//			MRJOSType t = MRJFileUtils.getFileType(file);
+//			return t.toInt() == 0 ? "" : t.toString();
+//		}
 		return "";
 	}
 
@@ -312,10 +312,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void setFileCreator(File file, String creator) throws IOException
 	{
-		if (mrjVersion >= 4.0f)
-			FileManager.setFileCreator(file.getAbsolutePath(), fourCharCodeToInt(creator));
-		else if (mrjVersion >= 1.5f)
-			MRJFileUtils.setFileCreator(file, new MRJOSType(fourCharCodeToInt(creator)));
+//		if (mrjVersion >= 4.0f)
+//			FileManager.setFileCreator(file.getAbsolutePath(), fourCharCodeToInt(creator));
+//		else if (mrjVersion >= 1.5f)
+//			MRJFileUtils.setFileCreator(file, new MRJOSType(fourCharCodeToInt(creator)));
 		/** @todo Add support for Mac OS bundles on other platforms */
 	}
 
@@ -335,38 +335,38 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static String getFileCreator(File file) throws IOException
 	{
-		if (file.isDirectory())
-		{
-			// Check if it's a Mac OS bundle (this should work on any platform)
-			File contents = new File(file, "Contents");
-			File infoPlist = new File(contents, "Info.plist");
-			if (infoPlist.exists())
-			{
-				// The Mac OS X Finder apparently gives priority to the
-				// PkgInfo file, so we do the same thing
-				File pkgInfo = new File(contents, "PkgInfo");
-				if (pkgInfo.exists())
-				{
-					String t = parsePkgInfo(pkgInfo, "creator");
-					return t == null ? "" : t;
-				}
-				else
-				{
-					String t = parseInfoPlist(infoPlist, "CFBundleSignature");
-					return t == null ? "" : t;
-				}
-			}
-		}
-		else if (mrjVersion >= 4.0f)
-		{
-			long c = FileManager.getFileCreator(file.getAbsolutePath());
-			return intToFourCharCode((int)c);
-		}
-		else if (mrjVersion >= 1.5f)
-		{
-			MRJOSType t = MRJFileUtils.getFileCreator(file);
-			return t.toInt() == 0 ? "" : t.toString();
-		}
+//		if (file.isDirectory())
+//		{
+//			// Check if it's a Mac OS bundle (this should work on any platform)
+//			File contents = new File(file, "Contents");
+//			File infoPlist = new File(contents, "Info.plist");
+//			if (infoPlist.exists())
+//			{
+//				// The Mac OS X Finder apparently gives priority to the
+//				// PkgInfo file, so we do the same thing
+//				File pkgInfo = new File(contents, "PkgInfo");
+//				if (pkgInfo.exists())
+//				{
+//					String t = parsePkgInfo(pkgInfo, "creator");
+//					return t == null ? "" : t;
+//				}
+//				else
+//				{
+//					String t = parseInfoPlist(infoPlist, "CFBundleSignature");
+//					return t == null ? "" : t;
+//				}
+//			}
+//		}
+//		else if (mrjVersion >= 4.0f)
+//		{
+//			long c = FileManager.getFileCreator(file.getAbsolutePath());
+//			return intToFourCharCode((int)c);
+//		}
+//		else if (mrjVersion >= 1.5f)
+//		{
+//			MRJOSType t = MRJFileUtils.getFileCreator(file);
+//			return t.toInt() == 0 ? "" : t.toString();
+//		}
 		return "";
 	}
 
@@ -385,17 +385,17 @@ public final class MRJAdapter implements MRJFolderConstants
 	public static void setFileCreatorAndType(File file, String creator, String type)
 		throws IOException
 	{
-		if (mrjVersion >= 4.0f)
-		{
-			FileManager.setFileTypeAndCreator(file.getAbsolutePath(),
-				fourCharCodeToInt(type), fourCharCodeToInt(creator));
-		}
-		else if (mrjVersion >= 1.5f)
-		{
-			MRJFileUtils.setFileTypeAndCreator(file,
-				new MRJOSType(fourCharCodeToInt(type)),
-				new MRJOSType(fourCharCodeToInt(creator)));
-		}
+//		if (mrjVersion >= 4.0f)
+//		{
+//			FileManager.setFileTypeAndCreator(file.getAbsolutePath(),
+//				fourCharCodeToInt(type), fourCharCodeToInt(creator));
+//		}
+//		else if (mrjVersion >= 1.5f)
+//		{
+//			MRJFileUtils.setFileTypeAndCreator(file,
+//				new MRJOSType(fourCharCodeToInt(type)),
+//				new MRJOSType(fourCharCodeToInt(creator)));
+//		}
 		/** @todo Add support for Mac OS bundles on other platforms */
 	}
 
@@ -412,11 +412,11 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean setFileLastModified(File file, long time)
 	{
-		if (javaVersion >= 1.2f)
+//		if (javaVersion >= 1.2f)
 			return file.setLastModified(time);
-		else if (mrjVersion >= 1.5f)
-			return MRJFileUtils.setFileLastModified(file, time);
-		return false;
+//		else if (mrjVersion >= 1.5f)
+//			return MRJFileUtils.setFileLastModified(file, time);
+//		return false;
 	}
 	
 	/**
@@ -442,15 +442,16 @@ public final class MRJAdapter implements MRJFolderConstants
 	public static File findFolder(short domain, int type, boolean create)
 		throws FileNotFoundException
 	{
-		if (mrjVersion >= 4.0f)
-			return new File(FileManager.findFolder(domain, type, create));
-		else if (mrjVersion >= 3.2f)
-			return MRJFileUtils.findFolder(domain, new MRJOSType(type), create);
-		else if (mrjVersion >= 3.0f)
-			return MRJFileUtils.findFolder(domain, new MRJOSType(type));
-		else if (mrjVersion >= 1.5f)
-			return MRJFileUtils.findFolder(new MRJOSType(type));
-		throw new FileNotFoundException();
+//		if (mrjVersion >= 4.0f)
+//			return new File(FileManager.findFolder(domain, type, create));
+//		else if (mrjVersion >= 3.2f)
+//			return MRJFileUtils.findFolder(domain, new MRJOSType(type), create);
+//		else if (mrjVersion >= 3.0f)
+//			return MRJFileUtils.findFolder(domain, new MRJOSType(type));
+//		else if (mrjVersion >= 1.5f)
+//			return MRJFileUtils.findFolder(new MRJOSType(type));
+//		throw new FileNotFoundException();
+            return null;
 	}
 
 	/**
@@ -498,12 +499,13 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static File findApplication(String idOrCreator) throws FileNotFoundException
 	{
-		if (mrjVersion >= 3.0f)
-		{
+//		if (mrjVersion >= 3.0f)
+//		{
 			try
 			{
 				/** @todo Can we do this with Cocoa instead (not NSAppleScript)? */
-				StringBuffer script = new StringBuffer();
+//				StringBuffer script = new StringBuffer();
+				StringBuilder script = new StringBuilder();
 				script.append("tell application \"Finder\" to get POSIX path of (application file id \"");
 				script.append(idOrCreator);
 				script.append("\" as alias)");
@@ -513,11 +515,11 @@ public final class MRJAdapter implements MRJFolderConstants
 			{
 				// Do nothing and let the FileNotFoundException be thrown instead
 			}
-		}
-		else if (mrjVersion >= 1.5f)
-		{
-			return MRJFileUtils.findApplication(new MRJOSType(fourCharCodeToInt(idOrCreator)));
-		}
+//		}
+//		else if (mrjVersion >= 1.5f)
+//		{
+//			return MRJFileUtils.findApplication(new MRJOSType(fourCharCodeToInt(idOrCreator)));
+//		}
 		throw new FileNotFoundException();
 	}
 
@@ -535,31 +537,32 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static File getBundleResource(String resource) throws FileNotFoundException
 	{
-		if (mrjVersion >= 4.0f)
-		{
-			return new File(FileManager.getResource(resource));
-		}
-		else if (mrjVersion >= 3.0f)
-		{
-			try
-			{
-				if (getResourceMethod == null)
-				{
-					// We use reflection here because for some unknown reason
-					// Apple hasn't included this method in MRJToolkitStubs
-					Class cls = Class.forName("com.apple.mrj.MRJFileUtils");
-					getResourceMethod = cls.getMethod("getResource",
-						new Class[] {String.class});
-				}
-				return (File)getResourceMethod.invoke(null,
-					new Object[] {resource});
-			}
-			catch (Exception ex)
-			{
-				// Just let the method throw a FileNotFoundException
-			}
-		}
-		throw new FileNotFoundException();
+//		if (mrjVersion >= 4.0f)
+//		{
+//			return new File(FileManager.getResource(resource));
+//		}
+//		else if (mrjVersion >= 3.0f)
+//		{
+//			try
+//			{
+//				if (getResourceMethod == null)
+//				{
+//					// We use reflection here because for some unknown reason
+//					// Apple hasn't included this method in MRJToolkitStubs
+//					Class cls = Class.forName("com.apple.mrj.MRJFileUtils");
+//					getResourceMethod = cls.getMethod("getResource",
+//						new Class[] {String.class});
+//				}
+//				return (File)getResourceMethod.invoke(null,
+//					new Object[] {resource});
+//			}
+//			catch (Exception ex)
+//			{
+//				// Just let the method throw a FileNotFoundException
+//			}
+//		}
+//		throw new FileNotFoundException();
+            return null;
 	}
 
 	/**
@@ -578,31 +581,32 @@ public final class MRJAdapter implements MRJFolderConstants
 	public static File getBundleResource(String resource, String subFolder)
 		throws FileNotFoundException
 	{
-		if (mrjVersion >= 4.0f)
-		{
-			return new File(FileManager.getResource(resource, subFolder));
-		}
-		else if (mrjVersion >= 3.0f)
-		{
-			try
-			{
-				if (getResourceSubMethod == null)
-				{
-					// We use reflection here because for some unknown reason
-					// Apple hasn't included this method in MRJToolkitStubs
-					Class cls = Class.forName("com.apple.mrj.MRJFileUtils");
-					getResourceSubMethod = cls.getMethod("getResource",
-						new Class[] {String.class, String.class});
-				}
-				return (File)getResourceSubMethod.invoke(null,
-					new Object[] {resource, subFolder});
-			}
-			catch (Exception ex)
-			{
-				// Just let the method throw a FileNotFoundException
-			}
-		}
-		throw new FileNotFoundException();
+//		if (mrjVersion >= 4.0f)
+//		{
+//			return new File(FileManager.getResource(resource, subFolder));
+//		}
+//		else if (mrjVersion >= 3.0f)
+//		{
+//			try
+//			{
+//				if (getResourceSubMethod == null)
+//				{
+//					// We use reflection here because for some unknown reason
+//					// Apple hasn't included this method in MRJToolkitStubs
+//					Class cls = Class.forName("com.apple.mrj.MRJFileUtils");
+//					getResourceSubMethod = cls.getMethod("getResource",
+//						new Class[] {String.class, String.class});
+//				}
+//				return (File)getResourceSubMethod.invoke(null,
+//					new Object[] {resource, subFolder});
+//			}
+//			catch (Exception ex)
+//			{
+//				// Just let the method throw a FileNotFoundException
+//			}
+//		}
+//		throw new FileNotFoundException();
+            return null;
 	}
 
 	/**
@@ -705,48 +709,48 @@ public final class MRJAdapter implements MRJFolderConstants
 	public static void openURL(String url) throws IOException
 	{
 		// Try the BrowserLauncher method
-		if (useBrowserLauncher && mrjVersion < 4.0f)
-		{
-			try
-			{
-				/** @todo We might want to cache some of these reflected objects */
-				
-				Class browserLauncherClass = Class.forName("edu.stanford.ejalbert.BrowserLauncher");
-				Method openURLMethod = browserLauncherClass.getMethod("openURL",
-					new Class[] {String.class});
-				openURLMethod.invoke(null, new Object[] {url});
-				return;
-			}
-			catch (Exception ex)
-			{
-				// Don't try using BrowserLauncher the next time
-				useBrowserLauncher = false;
-				
-				// Fall through to other methods
-			}
-		}
-		
-		// Try the Apple APIs
-		if (mrjVersion >= 4.0f)
-		{
-			// We don't use FileManager.openURL() because it is known to never
-			// return on occasions, seemingly at random
-		//	FileManager.openURL(url);
-			Runtime.getRuntime().exec(new String[] {"open", url});
-		}
-		else if (mrjVersion >= 2.2f)
-		{
-			MRJFileUtils.openURL(url);
-		}
-		else if (mrjVersion >= 1.5f)
-		{
-			File finder = MRJFileUtils.findApplication(new MRJOSType("MACS"));
-			Runtime.getRuntime().exec(new String[] {finder.getPath(), url});
-		}
-		else
-		{
-			throw new IOException("openURL not supported on this platform");
-		}
+//		if (useBrowserLauncher && mrjVersion < 4.0f)
+//		{
+//			try
+//			{
+//				/** @todo We might want to cache some of these reflected objects */
+//				
+//				Class browserLauncherClass = Class.forName("edu.stanford.ejalbert.BrowserLauncher");
+//				Method openURLMethod = browserLauncherClass.getMethod("openURL",
+//					new Class[] {String.class});
+//				openURLMethod.invoke(null, new Object[] {url});
+//				return;
+//			}
+//			catch (Exception ex)
+//			{
+//				// Don't try using BrowserLauncher the next time
+//				useBrowserLauncher = false;
+//				
+//				// Fall through to other methods
+//			}
+//		}
+//		
+//		// Try the Apple APIs
+//		if (mrjVersion >= 4.0f)
+//		{
+//			// We don't use FileManager.openURL() because it is known to never
+//			// return on occasions, seemingly at random
+//		//	FileManager.openURL(url);
+//			Runtime.getRuntime().exec(new String[] {"open", url});
+//		}
+//		else if (mrjVersion >= 2.2f)
+//		{
+//			MRJFileUtils.openURL(url);
+//		}
+//		else if (mrjVersion >= 1.5f)
+//		{
+//			File finder = MRJFileUtils.findApplication(new MRJOSType("MACS"));
+//			Runtime.getRuntime().exec(new String[] {finder.getPath(), url});
+//		}
+//		else
+//		{
+//			throw new IOException("openURL not supported on this platform");
+//		}
 	}
 
 	/**
@@ -756,7 +760,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isAboutAutomaticallyPresent()
 	{
-		return mrjVersion != -1.0f;
+//		return mrjVersion != -1.0f;
+            return false;
 	}
 
 	/**
@@ -781,10 +786,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addAboutListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addAboutListener(l, source);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().addAboutListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addAboutListener(l, source);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().addAboutListener(l, source);
 	}
 
 	/**
@@ -793,10 +798,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removeAboutListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removeAboutListener(l);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().removeAboutListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removeAboutListener(l);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().removeAboutListener(l);
 	}
 
 	/**
@@ -806,7 +811,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isPreferencesAutomaticallyPresent()
 	{
-		return mrjVersion >= 3.0f;
+//		return mrjVersion >= 3.0f;
+            return false;
 	}
 
 	/**
@@ -831,10 +837,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addPreferencesListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addPreferencesListener(l, source);
-		else if (mrjVersion >= 3.0f)
-			MRJ23EventProxy.getInstance().addPreferencesListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addPreferencesListener(l, source);
+//		else if (mrjVersion >= 3.0f)
+//			MRJ23EventProxy.getInstance().addPreferencesListener(l, source);
 	}
 
 	/**
@@ -843,10 +849,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removePreferencesListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removePreferencesListener(l);
-		else if (mrjVersion >= 3.0f)
-			MRJ23EventProxy.getInstance().removePreferencesListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removePreferencesListener(l);
+//		else if (mrjVersion >= 3.0f)
+//			MRJ23EventProxy.getInstance().removePreferencesListener(l);
 	}
 
 	/**
@@ -857,10 +863,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isPreferencesEnabled()
 	{
-		if (mrjVersion >= 4.0f)
-			return MRJ4EventProxy.getInstance().isPreferencesEnabled();
-		else if (mrjVersion >= 3.0f)
-			return MRJ23EventProxy.getInstance().isPreferencesEnabled();
+//		if (mrjVersion >= 4.0f)
+//			return MRJ4EventProxy.getInstance().isPreferencesEnabled();
+//		else if (mrjVersion >= 3.0f)
+//			return MRJ23EventProxy.getInstance().isPreferencesEnabled();
 		return false;
 	}
 
@@ -872,10 +878,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void setPreferencesEnabled(boolean enabled)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().setPreferencesEnabled(enabled);
-		else if (mrjVersion >= 3.0f)
-			MRJ23EventProxy.getInstance().setPreferencesEnabled(enabled);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().setPreferencesEnabled(enabled);
+//		else if (mrjVersion >= 3.0f)
+//			MRJ23EventProxy.getInstance().setPreferencesEnabled(enabled);
 	}
 
 	/**
@@ -900,10 +906,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addOpenApplicationListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addOpenApplicationListener(l, source);
-		else if (mrjVersion >= 2.2f)
-			MRJ23EventProxy.getInstance().addOpenApplicationListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addOpenApplicationListener(l, source);
+//		else if (mrjVersion >= 2.2f)
+//			MRJ23EventProxy.getInstance().addOpenApplicationListener(l, source);
 	}
 
 	/**
@@ -912,10 +918,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removeOpenApplicationListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removeOpenApplicationListener(l);
-		else if (mrjVersion >= 2.2f)
-			MRJ23EventProxy.getInstance().removeOpenApplicationListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removeOpenApplicationListener(l);
+//		else if (mrjVersion >= 2.2f)
+//			MRJ23EventProxy.getInstance().removeOpenApplicationListener(l);
 	}
 
 	/**
@@ -940,10 +946,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addReopenApplicationListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addReopenApplicationListener(l, source);
-		else if (mrjVersion >= 2.2f)
-			MRJ23EventProxy.getInstance().addReopenApplicationListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addReopenApplicationListener(l, source);
+//		else if (mrjVersion >= 2.2f)
+//			MRJ23EventProxy.getInstance().addReopenApplicationListener(l, source);
 	}
 
 	/**
@@ -952,10 +958,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removeReopenApplicationListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removeReopenApplicationListener(l);
-		else if (mrjVersion >= 2.2f)
-			MRJ23EventProxy.getInstance().removeReopenApplicationListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removeReopenApplicationListener(l);
+//		else if (mrjVersion >= 2.2f)
+//			MRJ23EventProxy.getInstance().removeReopenApplicationListener(l);
 	}
 
 	/**
@@ -965,7 +971,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isQuitAutomaticallyPresent()
 	{
-		return mrjVersion >= 3.0f;
+//		return mrjVersion >= 3.0f;
+            return false;
 	}
 
 	/**
@@ -990,10 +997,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addQuitApplicationListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addQuitApplicationListener(l, source);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().addQuitApplicationListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addQuitApplicationListener(l, source);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().addQuitApplicationListener(l, source);
 	}
 
 	/**
@@ -1002,10 +1009,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removeQuitApplicationListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removeQuitApplicationListener(l);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().removeQuitApplicationListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removeQuitApplicationListener(l);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().removeQuitApplicationListener(l);
 	}
 
 	/**
@@ -1031,10 +1038,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addOpenDocumentListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addOpenDocumentListener(l, source);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().addOpenDocumentListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addOpenDocumentListener(l, source);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().addOpenDocumentListener(l, source);
 	}
 
 	/**
@@ -1043,10 +1050,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removeOpenDocumentListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removeOpenDocumentListener(l);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().removeOpenDocumentListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removeOpenDocumentListener(l);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().removeOpenDocumentListener(l);
 	}
 
 	/**
@@ -1072,10 +1079,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void addPrintDocumentListener(ActionListener l, Object source)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().addPrintDocumentListener(l, source);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().addPrintDocumentListener(l, source);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().addPrintDocumentListener(l, source);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().addPrintDocumentListener(l, source);
 	}
 
 	/**
@@ -1085,10 +1092,10 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static void removePrintDocumentListener(ActionListener l)
 	{
-		if (mrjVersion >= 4.0f)
-			MRJ4EventProxy.getInstance().removePrintDocumentListener(l);
-		else if (mrjVersion >= 1.5f)
-			MRJ23EventProxy.getInstance().removePrintDocumentListener(l);
+//		if (mrjVersion >= 4.0f)
+//			MRJ4EventProxy.getInstance().removePrintDocumentListener(l);
+//		else if (mrjVersion >= 1.5f)
+//			MRJ23EventProxy.getInstance().removePrintDocumentListener(l);
 	}
 	
 	/**
@@ -1110,12 +1117,12 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static int getAppleJDirectVersion()
 	{
-		if (mrjVersion >= 3.0f && mrjVersion < 4.0f)
-			return 3;
-		else if (mrjVersion >= 2.1f && mrjVersion < 3.0f)
-			return 2;
-		else if (mrjVersion >= 1.5f && mrjVersion < 2.1f)
-			return 1;
+//		if (mrjVersion >= 3.0f && mrjVersion < 4.0f)
+//			return 3;
+//		else if (mrjVersion >= 2.1f && mrjVersion < 3.0f)
+//			return 2;
+//		else if (mrjVersion >= 1.5f && mrjVersion < 2.1f)
+//			return 1;
 		return -1;
 	}
 	
@@ -1126,7 +1133,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isAppleClassicVM()
 	{
-		return mrjVersion < 3.0f;
+//		return mrjVersion < 3.0f;
+            return false;
 	}
 	
 	/**
@@ -1136,7 +1144,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isAppleCarbonVM()
 	{
-		return mrjVersion >= 3.0f && mrjVersion < 4.0f;
+//		return mrjVersion >= 3.0f && mrjVersion < 4.0f;
+            return false;
 	}
 	
 	/**
@@ -1146,7 +1155,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isAppleCocoaVM()
 	{
-		return mrjVersion >= 4.0f;
+//		return mrjVersion >= 4.0f;
+            return false;
 	}
 	
 	/**
@@ -1157,7 +1167,8 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static boolean isAWTUsingScreenMenuBar()
 	{
-		return mrjVersion != -1.0f;
+//		return mrjVersion != -1.0f;
+            return false;
 	}
 	
 	/**
@@ -1171,36 +1182,36 @@ public final class MRJAdapter implements MRJFolderConstants
 	public static boolean isSwingUsingScreenMenuBar()
 	{
 		boolean result = false;
-		LookAndFeel laf = UIManager.getLookAndFeel();
-		String id = laf.getID();
-		String name = laf.getClass().getName();
-		if (id.equals("Mac") || id.equals("Aqua"))
-		{
-			// The original Mac L&F on classic Mac OS was not using the screen
-			// menu bar, but its ID was "Platinum" so we're fine
-			result = true;
-		}
-		else if (mrjVersion >= 4.0f)
-		{
-			String prop = System.getProperty("apple.laf.useScreenMenuBar");
-			if (prop == null)
-				prop = System.getProperty("com.apple.macos.useScreenMenuBar");
-			result = prop != null && prop.equalsIgnoreCase("true") &&
-				(name.equals("apple.laf.AquaLookAndFeel") ||
-				name.startsWith("ch.randelshofer.quaqua"));
-		}
-		else if (mrjVersion >= 3.0f)
-		{
-			String prop = System.getProperty("com.apple.macos.useScreenMenuBar");
-			result = prop != null && prop.equalsIgnoreCase("true") &&
-				(name.equals("com.apple.mrj.swing.MacLookAndFeel") ||
-				name.startsWith("ch.randelshofer.quaqua"));
-		}
-		else if (mrjVersion != -1.0f)
-		{
-			// The Mac OS L&F by Luca Lutterotti uses the screen menu bar
-			result = name.equals("it.unitn.ing.swing.plaf.macos.MacOSLookAndFeel");
-		}
+//		LookAndFeel laf = UIManager.getLookAndFeel();
+//		String id = laf.getID();
+//		String name = laf.getClass().getName();
+//		if (id.equals("Mac") || id.equals("Aqua"))
+//		{
+//			// The original Mac L&F on classic Mac OS was not using the screen
+//			// menu bar, but its ID was "Platinum" so we're fine
+//			result = true;
+//		}
+//		else if (mrjVersion >= 4.0f)
+//		{
+//			String prop = System.getProperty("apple.laf.useScreenMenuBar");
+//			if (prop == null)
+//				prop = System.getProperty("com.apple.macos.useScreenMenuBar");
+//			result = prop != null && prop.equalsIgnoreCase("true") &&
+//				(name.equals("apple.laf.AquaLookAndFeel") ||
+//				name.startsWith("ch.randelshofer.quaqua"));
+//		}
+//		else if (mrjVersion >= 3.0f)
+//		{
+//			String prop = System.getProperty("com.apple.macos.useScreenMenuBar");
+//			result = prop != null && prop.equalsIgnoreCase("true") &&
+//				(name.equals("com.apple.mrj.swing.MacLookAndFeel") ||
+//				name.startsWith("ch.randelshofer.quaqua"));
+//		}
+//		else if (mrjVersion != -1.0f)
+//		{
+//			// The Mac OS L&F by Luca Lutterotti uses the screen menu bar
+//			result = name.equals("it.unitn.ing.swing.plaf.macos.MacOSLookAndFeel");
+//		}
 		return result;
 	}
 	
@@ -1211,7 +1222,7 @@ public final class MRJAdapter implements MRJFolderConstants
 	 * its menu bars must be attached to frames. On platforms other
 	 * than Mac OS and Mac OS X, this method sets the menu bar
 	 * internally so that it will be properly returned by a subsequent
-	 * call to <code>getFramelessMenuBar()<code>.
+	 * call to <code>getFramelessMenuBar()</code>.
 	 * @param menuBar the AWT menu bar to use as frameless menu bar
 	 */
 	public static void setFramelessMenuBar(MenuBar menuBar)
@@ -1250,11 +1261,11 @@ public final class MRJAdapter implements MRJFolderConstants
 		
 		// Make it visible so the menubar will show, unless we're on a
 		// non-Mac platform where we just want to keep it internally
-		if (mrjVersion != -1.0f)
-		{
-			if (!invisibleFrame.isVisible())
-				invisibleFrame.setVisible(true);
-		}
+//		if (mrjVersion != -1.0f)
+//		{
+//			if (!invisibleFrame.isVisible())
+//				invisibleFrame.setVisible(true);
+//		}
 
 		// Set the menu bar
 		invisibleFrame.setMenuBar(menuBar);
@@ -1282,7 +1293,7 @@ public final class MRJAdapter implements MRJFolderConstants
 	 * properties are not set that activate the screen menu bar. Also,
 	 * on platforms other than Mac OS and Mac OS X, this method sets
 	 * the menu bar internally so that it will be properly returned by
-	 * a subsequent call to <code>getFramelessMenuBar()<code>.
+	 * a subsequent call to <code>getFramelessMenuBar()</code>.
 	 * @param menuBar the Swing menu bar to use as frameless menu bar
 	 */
 	public static void setFramelessJMenuBar(JMenuBar menuBar)
@@ -1412,22 +1423,22 @@ public final class MRJAdapter implements MRJFolderConstants
 		// This is nothing fancy but it does the job for now
 		/** @todo Should we set the encoding explicitly instead of using the platform default? */
 		String val = null;
-		LineNumberReader r = new LineNumberReader(new FileReader(file));
-		String line = r.readLine();
-		if (line != null)
-		{
-			if (key.equals("type"))
-			{
-				if (line.length() >= 4)
-					val = line.substring(0, 4);
-			}
-			else if (key.equals("creator"))
-			{
-				if (line.length() >= 8)
-					val = line.substring(4, 8);
-			}
-		}
-		r.close();
+//		LineNumberReader r = new LineNumberReader(new FileReader(file));
+//		String line = r.readLine();
+//		if (line != null)
+//		{
+//			if (key.equals("type"))
+//			{
+//				if (line.length() >= 4)
+//					val = line.substring(0, 4);
+//			}
+//			else if (key.equals("creator"))
+//			{
+//				if (line.length() >= 8)
+//					val = line.substring(4, 8);
+//			}
+//		}
+//		r.close();
 		return val;
 	}
 
@@ -1446,21 +1457,21 @@ public final class MRJAdapter implements MRJFolderConstants
 		// This is nothing fancy but it does the job for now
 		/** @todo Should we set the encoding explicitly instead of using the platform default? */
 		String val = null;
-		LineNumberReader r = new LineNumberReader(new FileReader(file));
-		String line;
-		while ((line = r.readLine()) != null)
-		{
-			if (line.indexOf(key) != -1)
-			{
-				if ((line = r.readLine()) != null)
-				{
-					line = line.trim();
-					val = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
-				}
-				break;
-			}
-		}
-		r.close();
+//		LineNumberReader r = new LineNumberReader(new FileReader(file));
+//		String line;
+//		while ((line = r.readLine()) != null)
+//		{
+//			if (line.indexOf(key) != -1)
+//			{
+//				if ((line = r.readLine()) != null)
+//				{
+//					line = line.trim();
+//					val = line.substring(line.indexOf('>') + 1, line.lastIndexOf('<'));
+//				}
+//				break;
+//			}
+//		}
+//		r.close();
 		return val;
 	}
 
@@ -1492,23 +1503,23 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	public static String getStartupDisk() throws IOException
 	{
-		if (startupDisk == null)
-		{
-			if (mrjVersion >= 3.0f)
-			{
-				/** @todo Can we do this with Cocoa instead (not NSAppleScript)? */
-				startupDisk = runAppleScript("tell application \"Finder\" to get name of startup disk");
-			}
-			else if (mrjVersion != -1.0f)
-			{
-				String path = MRJFileUtils.findFolder(new MRJOSType("macs")).getPath();
-				startupDisk = path.substring(1, path.indexOf('/', 1));
-			}
-			else
-			{
-				throw new IOException();
-			}
-		}
+//		if (startupDisk == null)
+//		{
+//			if (mrjVersion >= 3.0f)
+//			{
+//				/** @todo Can we do this with Cocoa instead (not NSAppleScript)? */
+//				startupDisk = runAppleScript("tell application \"Finder\" to get name of startup disk");
+//			}
+//			else if (mrjVersion != -1.0f)
+//			{
+//				String path = MRJFileUtils.findFolder(new MRJOSType("macs")).getPath();
+//				startupDisk = path.substring(1, path.indexOf('/', 1));
+//			}
+//			else
+//			{
+//				throw new IOException();
+//			}
+//		}
 		return startupDisk;
 	}
 
@@ -1522,34 +1533,34 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	private static String getApplicationPath() throws IOException
 	{
-		if (applicationPath == null)
-		{
-			if (mrjVersion >= 3.0f)
-			{
-				try
-				{
-					Class nsBundleClass =
-						Class.forName("com.apple.cocoa.foundation.NSBundle", true, cocoaClassLoader);
-					Method mainBundleMethod = nsBundleClass.getMethod("mainBundle");
-					Object bndl = mainBundleMethod.invoke(null);
-					Method bundlePathMethod = nsBundleClass.getMethod("bundlePath");
-					applicationPath = (String)bundlePathMethod.invoke(bndl);
-				}
-				catch (Exception ex)
-				{
-					throw new IOException(ex.getMessage());
-				}
-			}
-			else if (mrjVersion != -1.0f)
-			{
-				/** @todo Does anyone has some briefly elegant JDirect code to do this? */
-				throw new IOException();
-			}
-			else
-			{
-				throw new IOException();
-			}
-		}
+//		if (applicationPath == null)
+//		{
+//			if (mrjVersion >= 3.0f)
+//			{
+//				try
+//				{
+//					Class nsBundleClass =
+//						Class.forName("com.apple.cocoa.foundation.NSBundle", true, cocoaClassLoader);
+//					Method mainBundleMethod = nsBundleClass.getMethod("mainBundle");
+//					Object bndl = mainBundleMethod.invoke(null);
+//					Method bundlePathMethod = nsBundleClass.getMethod("bundlePath");
+//					applicationPath = (String)bundlePathMethod.invoke(bndl);
+//				}
+//				catch (Exception ex)
+//				{
+//					throw new IOException(ex.getMessage());
+//				}
+//			}
+//			else if (mrjVersion != -1.0f)
+//			{
+//				/** @todo Does anyone has some briefly elegant JDirect code to do this? */
+//				throw new IOException();
+//			}
+//			else
+//			{
+//				throw new IOException();
+//			}
+//		}
 		return applicationPath;
 	}
 
@@ -1563,14 +1574,14 @@ public final class MRJAdapter implements MRJFolderConstants
 	 */
 	private static String runAppleScript(String script) throws IOException
 	{
-		Process p = Runtime.getRuntime().exec(new String[] {"osascript", "-e", script});
-		InputStreamReader r = new InputStreamReader(p.getInputStream());
+//		Process p = Runtime.getRuntime().exec(new String[] {"osascript", "-e", script});
+//		InputStreamReader r = new InputStreamReader(p.getInputStream());
 		StringBuffer b = new StringBuffer();
-		char[] buf = new char[128];
-		int n;
-		while ((n = r.read(buf)) != -1)
-			b.append(buf, 0, n);
-		r.close();
+//		char[] buf = new char[128];
+//		int n;
+//		while ((n = r.read(buf)) != -1)
+//			b.append(buf, 0, n);
+//		r.close();
 		return b.toString().trim();
 	}
 }

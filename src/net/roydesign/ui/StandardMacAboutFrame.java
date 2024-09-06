@@ -249,7 +249,7 @@ public class StandardMacAboutFrame extends JFrame
 	 * This area is only visible if the credits string is non-null. The content
 	 * type must be one of text/plain, text/rtf, or text/html. If the type is
 	 * text/html and there are hyperlinks in the text, you should register an
-	 * hyperlink listener with the method <code>setHyperlinkListener()<code>.
+	 * hyperlink listener with the method <code>setHyperlinkListener()</code>.
 	 * @param credits the credits string to display
 	 * @param contentType the content type of the credits string
 	 * @see #setHyperlinkListener

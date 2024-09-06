@@ -50,7 +50,7 @@ import java.awt.Frame;
  * menu bar on the Mac while allowing distinct menu bars on other platforms.</p>
  *
  * <p>Typically, the most convenient way of using these classes is to subclass
- * <code>ScreenMenuBar</code> and then instantiate it for each of your frames.<p>
+ * <code>ScreenMenuBar</code> and then instantiate it for each of your frames.</p>
  *
  * <pre>
  * public class MyMenuBar extends ScreenMenuBar

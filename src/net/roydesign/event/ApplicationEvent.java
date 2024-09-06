@@ -150,24 +150,24 @@ public class ApplicationEvent extends ActionEvent
 	public ApplicationEvent(Object source, int type, File file, String actionCommand)
 	{
 		super(source, ActionEvent.ACTION_PERFORMED, actionCommand, 0);
-		switch (type)
-		{
-			case ABOUT:
-			case PREFERENCES:
-			case OPEN_APPLICATION:
-			case REOPEN_APPLICATION:
-			case QUIT_APPLICATION:
-				if (file != null)
-					throw new IllegalArgumentException("adapter event ID can't include a file");
-				break;
-			case OPEN_DOCUMENT:
-			case PRINT_DOCUMENT:
-				if (file == null)
-					throw new IllegalArgumentException("adapter event ID requires a file");
-				break;
-		}
-		this.type = type;
-		this.file = file;
+//		switch (type)
+//		{
+//			case ABOUT:
+//			case PREFERENCES:
+//			case OPEN_APPLICATION:
+//			case REOPEN_APPLICATION:
+//			case QUIT_APPLICATION:
+//				if (file != null)
+//					throw new IllegalArgumentException("adapter event ID can't include a file");
+//				break;
+//			case OPEN_DOCUMENT:
+//			case PRINT_DOCUMENT:
+//				if (file == null)
+//					throw new IllegalArgumentException("adapter event ID requires a file");
+//				break;
+//		}
+//		this.type = type;
+//		this.file = file;
 	}
 
 	/**

@@ -414,7 +414,7 @@ public class DocumentFile
 	{
 		if (title == null || title.length() == 0)
 			throw new IllegalArgumentException("title can't be null or zero length");
-		StringBuffer b = new StringBuffer();
+		StringBuilder b = new StringBuilder();
 		b.append(title);
 		if (extension != null && extension.length() > 0)
 		{
@@ -459,6 +459,7 @@ public class DocumentFile
 	/**
 	 * Get the canonical path to the document file on disk.
 	 * @return the canonical path to the document
+     * @throws java.io.IOException bad things happened
 	 * @see java.io.File#getCanonicalPath
 	 */
 	public String getCanonicalPath() throws IOException

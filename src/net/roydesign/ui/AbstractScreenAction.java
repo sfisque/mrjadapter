@@ -72,6 +72,7 @@ public abstract class AbstractScreenAction extends javax.swing.AbstractAction
 	/**
 	 * Defines an abstract action with the specified
 	 * description string and a default icon.
+     * @param name the name
 	 */
 	public AbstractScreenAction(String name)
 	{
@@ -81,6 +82,8 @@ public abstract class AbstractScreenAction extends javax.swing.AbstractAction
 	/**
 	 * Defines an abstract action with the specified
 	 * description string and the specified icon.
+     * @param name a name
+     * @param icon an icon
 	 */
 	public AbstractScreenAction(String name, Icon icon)
 	{
@@ -110,12 +113,13 @@ public abstract class AbstractScreenAction extends javax.swing.AbstractAction
 		if (userFrames == null)
 			return;
 		userFrames.removeElement(frameClass);
-		if (userFrames.size() == 0)
+		if (userFrames.isEmpty())
 			userFrames = null;
 	}
 	
 	/**
 	 * Get whether the action is used by the given frame instance.
+     * @param frame a frame
 	 * @return whether the action is used by the given frame
 	 */
 	public boolean isUsedBy(Frame frame)

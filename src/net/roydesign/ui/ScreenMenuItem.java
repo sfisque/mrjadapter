@@ -144,8 +144,7 @@ public class ScreenMenuItem extends java.awt.MenuItem
 		super.setEnabled(enabled);
 		if (enabled != oldEnabled)
 		{
-			propertiesHandler.firePropertyChange("enabled",
-				new Boolean(oldEnabled), new Boolean(enabled));
+			propertiesHandler.firePropertyChange("enabled", Boolean.valueOf( oldEnabled ), Boolean.valueOf( enabled ));
 		}
 	}
 	
@@ -273,12 +272,13 @@ public class ScreenMenuItem extends java.awt.MenuItem
 		if (userFrames == null)
 			return;
 		userFrames.removeElement(frameClass);
-		if (userFrames.size() == 0)
+		if (userFrames.isEmpty())
 			userFrames = null;
 	}
 	
 	/**
 	 * Get whether the menu item is used by the given frame instance.
+        * @param frame the frame
 	 * @return whether the menu item is used by the given frame
 	 */
 	public boolean isUsedBy(Frame frame)

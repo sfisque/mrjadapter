@@ -35,7 +35,7 @@ import java.util.Vector;
  * See the class <code>JScreenMenuBar</code> for more details.</p>
  *
  * <p>As a convenience, this class implements support for the
- * <code>setAction()<code> method for versions of Swing that didn't include it.</p>
+ * <code>setAction()</code> method for versions of Swing that didn't include it.</p>
  *
  * @see JScreenMenuBar
  * 
@@ -241,6 +241,7 @@ public class JScreenMenuItem extends javax.swing.JMenuItem
 	
 	/**
 	 * Get whether the menu item is used by the given frame instance.
+     * @param frame the frame
 	 * @return whether the menu item is used by the given frame
 	 */
 	public boolean isUsedBy(JFrame frame)

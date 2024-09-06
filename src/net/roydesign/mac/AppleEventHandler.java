@@ -34,6 +34,7 @@ public interface AppleEventHandler
 	 * @param event a native pointer to the Apple event
 	 * @param reply a native pointer to the event reply
 	 * @param refcon the application-defined reference constant
+     * @return short
 	 */
 	public short handleEvent(int event, int reply, int refcon);
 }

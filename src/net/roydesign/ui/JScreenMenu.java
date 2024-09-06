@@ -44,7 +44,7 @@ import java.util.Vector;
  * enabled. This is the kind of behavior expected by users from a quality
  * desktop application and this class takes care of the work for you.</p>
  *
- * <p>Finally, this class fixes a bug in the Aqua L&F of the Java 1.3.1 VM
+ * <p>Finally, this class fixes a bug in the Aqua L&amp;F of the Java 1.3.1 VM
  * from Apple where the disabling the menu before the parent frame is shown
  * has no effect for Swing menus when using the screen menu bar.</p>
  *
@@ -302,6 +302,7 @@ public class JScreenMenu extends javax.swing.JMenu implements PropertyChangeList
 	
 	/**
 	 * Get whether the menu is used by the given frame instance.
+     * @param frame the frame
 	 * @return whether the menu is used by the given frame
 	 */
 	public boolean isUsedBy(JFrame frame)

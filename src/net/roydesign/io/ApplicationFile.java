@@ -334,6 +334,7 @@ public class ApplicationFile
 	/**
 	 * Get the canonical path to the application file on disk.
 	 * @return the canonical path to the application
+     * @throws java.io.IOException bad things happened
 	 * @see java.io.File#getCanonicalPath
 	 */
 	public String getCanonicalPath() throws IOException
